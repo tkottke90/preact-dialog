@@ -1,4 +1,6 @@
+import { cloneElement } from 'preact';
 import { Fragment, useCallback, useRef } from "preact/compat";
+import { useEffect } from 'preact/hooks';
 import type { BaseProps } from "../lib/base";
 import { createContextWithHook } from "../lib/helpers";
 
@@ -85,10 +87,6 @@ export class PreactDialog extends HTMLElement {
     // Get references to elements
     this.dialog = shadow.querySelector('dialog');
     this.defaultOpen = shadow.querySelector('#dialog__default-open')
-
-    console.dir({
-      id: this.id
-    })
   }
 
   connectedCallback() {
@@ -101,11 +99,6 @@ export class PreactDialog extends HTMLElement {
     if (className && !this.dialog.classList.contains(className)) {
       this.dialog.classList.add(className);
     }
-
-    console.dir({
-      component: this.dialog.classList.toString(),
-      className
-    });
 
     this.dialog.addEventListener('click', (evt) => {
       if (!this.dialog) return;
@@ -263,10 +256,40 @@ export function DialogFooter({ children }: DialogFooterProps) {
   return <div slot="footer">{children}</div>;
 }
 
-export function DialogTrigger({ children }: DialogTriggerProps) {
+export function DialogTrigger({ children, className }: DialogTriggerProps) {
   const { open } = useDialog();
 
-  return <button slot="trigger" onClick={open}>{children}</button>;
+  // If no children, render default
+  if (!children) {
+    return <button className={className} slot="trigger" onClick={open}>
+      Open Dialog
+    </button>;
+  }
+
+  // If children are an array or primitive, wrap in a button
+  if (Array.isArray(children) || typeof children !== 'object') {
+    return <button className={className} slot="trigger" onClick={open}>
+      {children}
+    </button>;
+  }
+
+  if ('props' in children) {
+    const ref = useRef<HTMLElement>(null);
+
+    useEffect(() => {
+      if (!ref.current) return;
+
+      const abortCtrl = new AbortController();
+
+      ref.current.addEventListener('click', open, { signal: abortCtrl.signal });
+
+      return () => abortCtrl.abort();
+    }, [ children ]);
+
+    return cloneElement(children, { ref })
+  }
+  
+  return (<Fragment>{children}</Fragment>)
 }
 
 export function DialogClose({ children }: DialogCloseProps) {

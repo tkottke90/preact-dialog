@@ -1,7 +1,67 @@
+/**
+ * Custom Styles Story
+ * Demonstrates theming with CSS custom properties
+ */
+preact-dialog#custom-styles,
+preact-dialog.custom-styles {
+  /* Background and foreground colors */
+  --preact-dialog__bg: hsl(230, 50%, 20%);
+  --preact-dialog_fg: #e0e0e0;
 
+  /* Border styling */
+  --preact-dialog__border-width: 2px;
+  --preact-dialog__border-style: solid;
+  --preact-dialog__border-color: hsl(230, 50%, 40%);
+  --preact-dialog__border-radius: 12px;
 
+  /* Size constraints */
+  --preact-dialog__width: fit-content;
+  --preact-dialog__width_min: 400px;
+  --preact-dialog__width_max: 600px;
 
-preact-dialog#custom-styles {
-  --preact-dialog__bg: hsl(230, 50%, 50%);
-  --preact-dialog_fg: #eee;
+  /* Backdrop styling */
+  --preact-dialog__backdrop_bg: hsl(230, 50%, 10%);
+  --preact-dialog__backdrop_opacity: 80%;
+}
+
+/**
+ * Example: Light theme variant
+ * You can create multiple theme variants
+ */
+preact-dialog.light-theme {
+  --preact-dialog__bg: #ffffff;
+  --preact-dialog_fg: #1a1a1a;
+  --preact-dialog__border-color: #e0e0e0;
+  --preact-dialog__border-radius: 8px;
+  --preact-dialog__backdrop_bg: #000000;
+  --preact-dialog__backdrop_opacity: 40%;
+}
+
+/**
+ * Example: Colorful theme
+ */
+preact-dialog.colorful-theme {
+  --preact-dialog__bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --preact-dialog_fg: #ffffff;
+  --preact-dialog__border-width: 0;
+  --preact-dialog__border-radius: 20px;
+  --preact-dialog__backdrop_bg: #667eea;
+  --preact-dialog__backdrop_opacity: 60%;
+}
+
+/**
+ * Example: Minimal theme
+ */
+preact-dialog.minimal-theme {
+  --preact-dialog__bg: #fafafa;
+  --preact-dialog_fg: #333333;
+  --preact-dialog__border-width: 1px;
+  --preact-dialog__border-color: #dddddd;
+  --preact-dialog__border-radius: 4px;
+  --preact-dialog__width_max: 90vw;
+}
+
+.customBtn {
+  border: 1px solid hsl(150, 50%, 50%);
+  background-color: hsl(150, 50%, 80%);
 }
