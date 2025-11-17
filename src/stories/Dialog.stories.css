@@ -1,0 +1,7 @@
+
+
+
+preact-dialog#custom-styles {
+  --preact-dialog__bg: hsl(230, 50%, 50%);
+  --preact-dialog_fg: #eee;
+}

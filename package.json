@@ -17,7 +17,8 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "NODE_ENV=production storybook build",
+    "build-storybook:local": "storybook build"
   },
   "dependencies": {
     "preact": "^10.27.2"
